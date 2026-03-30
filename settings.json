@@ -1,0 +1,301 @@
+{
+  "//": "========================================",
+  "//": "VS Code Settings - Smart Study Desk Monitor",
+  "//": "========================================",
+  
+  "//": "Associations de fichiers",
+  "files.associations": {
+    "*.ino": "cpp",
+    "*.h": "c",
+    "platformio.ini": "ini",
+    "*.tpp": "cpp"
+  },
+  
+  "//": "Formatage automatique",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  
+  "//": "Configuration de l'éditeur",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  "editor.fontFamily": "'Fira Code', 'JetBrains Mono', 'Consolas', 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.maxColumn": 120,
+  "editor.rulers": [80, 120],
+  "editor.wordWrap": "on",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.suggestSelection": "first",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  
+  "//": "Curseur",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  
+  "//": "Gestion des fichiers",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.eol": "\n",
+  
+  "//": "Fichiers à exclure de l'explorateur",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.pio": true,
+    "**/build": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  
+  "//": "Fichiers à exclure de la recherche",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/.pio": true,
+    "**/.git": true,
+    "**/dist": true,
+    "**/.firebase": true,
+    "**/coverage": true
+  },
+  
+  "//": "Configuration C/C++ (ESP32)",
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/hardware/src/**",
+    "${workspaceFolder}/hardware/lib/**",
+    "${workspaceFolder}/hardware/.pio/libdeps/**"
+  ],
+  "C_Cpp.default.defines": [
+    "PLATFORMIO=60106",
+    "ARDUINO_ARCH_ESP32",
+    "ESP32"
+  ],
+  "C_Cpp.default.compilerPath": "",
+  "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.errorSquiggles": "enabled",
+  "C_Cpp.autocomplete": "default",
+  
+  "//": "Configuration JavaScript",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
+  },
+  
+  "//": "Configuration TypeScript",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  
+  "//": "Configuration HTML",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
+  },
+  
+  "//": "Configuration CSS",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  
+  "//": "Configuration JSON",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  
+  "//": "Configuration Markdown",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  
+  "//": "Configuration Python",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.analysis.typeCheckingMode": "basic",
+  
+  "//": "Terminal intégré",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontFamily": "'Fira Code', 'Consolas', monospace",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.scrollback": 10000,
+  
+  "//": "Git",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.suggestSmartCommit": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  
+  "//": "GitLens (si installé)",
+  "gitlens.codeLens.enabled": true,
+  "gitlens.currentLine.enabled": true,
+  
+  "//": "Emmet",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  
+  "//": "Breadcrumbs",
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.symbolPath": "on",
+  
+  "//": "Explorateur de fichiers",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  
+  "//": "Thème et apparence",
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "welcomePage",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.closeEmptyGroups": true,
+  
+  "//": "ESLint",
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "eslint.autoFixOnSave": true,
+  
+  "//": "Prettier",
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.printWidth": 100,
+  
+  "//": "Live Server",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.port": 8080,
+  "liveServer.settings.root": "/web/public",
+  "liveServer.settings.CustomBrowser": "chrome",
+  
+  "//": "TODO Highlight",
+  "todohighlight.isEnable": true,
+  "todohighlight.keywords": [
+    {
+      "text": "TODO:",
+      "color": "#000",
+      "backgroundColor": "#FFA500",
+      "isWholeLine": false
+    },
+    {
+      "text": "FIXME:",
+      "color": "#fff",
+      "backgroundColor": "#FF0000",
+      "isWholeLine": false
+    },
+    {
+      "text": "NOTE:",
+      "color": "#000",
+      "backgroundColor": "#00FF00",
+      "isWholeLine": false
+    }
+  ],
+  
+  "//": "Better Comments",
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  
+  "//": "Correction orthographique",
+  "cSpell.language": "en,fr",
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "platformio",
+    "firebase",
+    "firestore",
+    "mqtt",
+    "wifi",
+    "ssid",
+    "gpio",
+    "dht",
+    "lux",
+    "arduino",
+    "iot"
+  ],
+  
+  "//": "Sauvegarde automatique améliorée",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.pio/**": true
+  },
+  
+  "//": "Désactiver la télémétrie (optionnel)",
+  "telemetry.telemetryLevel": "off",
+  
+  "//": "Fin de la configuration",
+  "//": "========================================"
+}

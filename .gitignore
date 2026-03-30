@@ -1,0 +1,285 @@
+# ========================================
+# Smart Study Desk Monitor - .gitignore
+# ========================================
+
+# ========================================
+# VS Code
+# ========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# ========================================
+# PlatformIO (ESP32)
+# ========================================
+.pio/
+.pioenvs/
+.piolibdeps/
+.piopackages/
+.clang_complete
+.gcc-flags.json
+build/
+*.elf
+*.bin
+*.map
+
+# ========================================
+# Node.js / NPM
+# ========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# ========================================
+# Firebase
+# ========================================
+.firebase/
+.firebaserc
+firebase-debug.log
+firestore-debug.log
+database-debug.log
+ui-debug.log
+firebase-debug.*.log
+
+# ========================================
+# Configuration sensible (NE PAS COMMITTER!)
+# ========================================
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Configuration WiFi et Firebase
+hardware/config/config.h
+web/src/config/firebase-config.js
+**/secret.*
+**/secrets.*
+credentials.json
+
+# ========================================
+# Système d'exploitation
+# ========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ========================================
+# IDE et Éditeurs
+# ========================================
+# JetBrains
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Atom
+.atom/
+
+# Eclipse
+.project
+.cproject
+.settings/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+
+# ========================================
+# Builds et Distribution
+# ========================================
+dist/
+build/
+out/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.app
+*.lib
+
+# ========================================
+# Logs
+# ========================================
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ========================================
+# Tests
+# ========================================
+coverage/
+*.cover
+*.py,cover
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ========================================
+# Documentation générée
+# ========================================
+docs/_build/
+site/
+
+# ========================================
+# Temporaires
+# ========================================
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*.bak
+*.backup
+*~.nib
+*.orig
+
+# ========================================
+# Données de test
+# ========================================
+test-data/
+*.test
+*.spec
+
+# ========================================
+# Dépendances Python (si utilisé)
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ========================================
+# Bases de données locales
+# ========================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ========================================
+# Fichiers compilés
+# ========================================
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ========================================
+# Archives
+# ========================================
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ========================================
+# Certificats et clés
+# ========================================
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+
+# ========================================
+# Spécifique au projet
+# ========================================
+# Fichiers de backup des capteurs
+sensor-backup/
+
+# Données brutes de test
+raw-data/
+
+# Anciennes versions
+old/
+archive/
+deprecated/
+
+# Documentation LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# ========================================
+# Keep files (exceptions)
+# ========================================
+!.gitkeep
+!README.md
+!LICENSE
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+
+# ========================================
+# End of .gitignore
+# ========================================

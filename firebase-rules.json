@@ -1,0 +1,133 @@
+{
+  "rules": {
+    "study_desk_monitor": {
+      
+      // Règles pour les lectures de capteurs
+      "readings": {
+        ".read": true,
+        ".write": true,
+        
+        // Validation de la structure des données
+        "$reading_id": {
+          ".validate": "newData.hasChildren(['timestamp', 'light', 'noise', 'temperature', 'humidity', 'comfort_score'])",
+          
+          "timestamp": {
+            ".validate": "newData.isString() && newData.val().length > 0"
+          },
+          
+          "light": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"
+          },
+          
+          "noise": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 150"
+          },
+          
+          "temperature": {
+            ".validate": "newData.isNumber() && newData.val() >= -50 && newData.val() <= 100"
+          },
+          
+          "humidity": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          
+          "comfort_score": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          }
+        },
+        
+        // Limiter le nombre d'enregistrements (garder les 1000 derniers)
+        ".indexOn": [".priority"],
+        ".read": true,
+        ".write": true
+      },
+      
+      // Règles pour les alertes
+      "alerts": {
+        ".read": true,
+        ".write": true,
+        
+        "$alert_id": {
+          ".validate": "newData.hasChildren(['type', 'message', 'timestamp'])",
+          
+          "type": {
+            ".validate": "newData.isString()"
+          },
+          
+          "message": {
+            ".validate": "newData.isString()"
+          },
+          
+          "timestamp": {
+            ".validate": "newData.isString()"
+          },
+          
+          "value": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "severity": {
+            ".validate": "newData.isString() && (newData.val() === 'info' || newData.val() === 'warning' || newData.val() === 'critical')"
+          }
+        }
+      },
+      
+      // Règles pour les paramètres (lecture seule sauf pour admin)
+      "settings": {
+        ".read": true,
+        ".write": false,
+        
+        "thresholds": {
+          ".read": true,
+          ".write": false,
+          
+          "light_min": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "light_max": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "noise_min": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "noise_max": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "temp_min": {
+            ".validate": "newData.isNumber()"
+          },
+          
+          "temp_max": {
+            ".validate": "newData.isNumber()"
+          }
+        },
+        
+        "update_interval": {
+          ".validate": "newData.isNumber() && newData.val() >= 1000"
+        }
+      },
+      
+      // Statistiques (optionnel)
+      "statistics": {
+        ".read": true,
+        ".write": true,
+        
+        "daily": {
+          "$date": {
+            ".validate": "newData.hasChildren(['avg_light', 'avg_noise', 'avg_temperature', 'avg_comfort_score'])"
+          }
+        },
+        
+        "weekly": {
+          "$week": {
+            ".validate": "newData.hasChildren(['avg_light', 'avg_noise', 'avg_temperature', 'avg_comfort_score'])"
+          }
+        }
+      }
+    }
+  }
+}

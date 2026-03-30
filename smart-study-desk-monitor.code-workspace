@@ -1,0 +1,251 @@
+{
+    "folders": [
+        {
+            "name": "🔌 Hardware (ESP32)",
+            "path": "./hardware"
+        },
+        {
+            "name": "☁️ Cloud (Firebase)",
+            "path": "./cloud"
+        },
+        {
+            "name": "🌐 Web (Dashboard)",
+            "path": "./web"
+        },
+        {
+            "name": "📚 Documentation",
+            "path": "./docs"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/node_modules": true,
+            "**/.git": true,
+            "**/build": true,
+            "**/.pio": true,
+            "**/.pioenvs": true,
+            "**/.piolibdeps": true
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        
+        // Configuration C/C++ pour ESP32
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder}/hardware/src/**",
+            "${workspaceFolder}/hardware/lib/**",
+            "${workspaceFolder}/hardware/.pio/libdeps/**"
+        ],
+        "C_Cpp.default.compilerPath": "",
+        "C_Cpp.intelliSenseEngine": "default",
+        
+        // Association de fichiers
+        "files.associations": {
+            "*.ino": "cpp",
+            "*.h": "c",
+            "platformio.ini": "ini"
+        },
+        
+        // Configuration Python (si utilisé pour scripts)
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        
+        // Configuration JavaScript/HTML/CSS
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.tabSize": 2
+        },
+        "[html]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.tabSize": 2
+        },
+        "[css]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.tabSize": 2
+        },
+        "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.tabSize": 2
+        },
+        
+        // Terminal
+        "terminal.integrated.fontSize": 13,
+        "terminal.integrated.fontFamily": "'Fira Code', 'Consolas', monospace",
+        "terminal.integrated.defaultProfile.windows": "PowerShell",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        
+        // Git
+        "git.autofetch": true,
+        "git.confirmSync": false,
+        
+        // Emmet
+        "emmet.includeLanguages": {
+            "javascript": "javascriptreact"
+        },
+        
+        // Breadcrumbs
+        "breadcrumbs.enabled": true,
+        
+        // Minimap
+        "editor.minimap.enabled": true,
+        "editor.minimap.maxColumn": 120,
+        
+        // Search
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/build": true,
+            "**/.pio": true,
+            "**/.git": true,
+            "**/dist": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "platformio.platformio-ide",
+            "ms-vscode.cpptools",
+            "ms-vscode.cpptools-extension-pack",
+            "esbenp.prettier-vscode",
+            "dbaeumer.vscode-eslint",
+            "ritwickdey.liveserver",
+            "formulahendry.auto-close-tag",
+            "formulahendry.auto-rename-tag",
+            "ms-vscode.vscode-serial-monitor",
+            "toba.vsfire",
+            "eamodio.gitlens",
+            "christian-kohler.path-intellisense",
+            "wayou.vscode-todo-highlight",
+            "aaron-bond.better-comments",
+            "pkief.material-icon-theme",
+            "zhuangtongfa.material-theme",
+            "oderwat.indent-rainbow",
+            "streetsidesoftware.code-spell-checker"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "PlatformIO: Build",
+                "type": "shell",
+                "command": "platformio",
+                "args": ["run"],
+                "options": {
+                    "cwd": "${workspaceFolder}/hardware"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": ["$platformio"]
+            },
+            {
+                "label": "PlatformIO: Upload",
+                "type": "shell",
+                "command": "platformio",
+                "args": ["run", "--target", "upload"],
+                "options": {
+                    "cwd": "${workspaceFolder}/hardware"
+                },
+                "group": "build",
+                "problemMatcher": ["$platformio"]
+            },
+            {
+                "label": "PlatformIO: Clean",
+                "type": "shell",
+                "command": "platformio",
+                "args": ["run", "--target", "clean"],
+                "options": {
+                    "cwd": "${workspaceFolder}/hardware"
+                },
+                "group": "build"
+            },
+            {
+                "label": "PlatformIO: Monitor",
+                "type": "shell",
+                "command": "platformio",
+                "args": ["device", "monitor"],
+                "options": {
+                    "cwd": "${workspaceFolder}/hardware"
+                },
+                "isBackground": true,
+                "problemMatcher": []
+            },
+            {
+                "label": "Web: Install Dependencies",
+                "type": "shell",
+                "command": "npm",
+                "args": ["install"],
+                "options": {
+                    "cwd": "${workspaceFolder}/web"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Web: Start Dev Server",
+                "type": "shell",
+                "command": "npm",
+                "args": ["start"],
+                "options": {
+                    "cwd": "${workspaceFolder}/web"
+                },
+                "isBackground": true,
+                "problemMatcher": []
+            },
+            {
+                "label": "Web: Build Production",
+                "type": "shell",
+                "command": "npm",
+                "args": ["run", "build"],
+                "options": {
+                    "cwd": "${workspaceFolder}/web"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Firebase: Deploy",
+                "type": "shell",
+                "command": "firebase",
+                "args": ["deploy"],
+                "options": {
+                    "cwd": "${workspaceFolder}/cloud"
+                },
+                "group": "build"
+            },
+            {
+                "label": "Firebase: Emulators",
+                "type": "shell",
+                "command": "firebase",
+                "args": ["emulators:start"],
+                "options": {
+                    "cwd": "${workspaceFolder}/cloud"
+                },
+                "isBackground": true,
+                "problemMatcher": []
+            }
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "PlatformIO Debug",
+                "type": "platformio-debug",
+                "request": "launch",
+                "cwd": "${workspaceFolder}/hardware"
+            },
+            {
+                "name": "Chrome Debug",
+                "type": "chrome",
+                "request": "launch",
+                "url": "http://localhost:8080",
+                "webRoot": "${workspaceFolder}/web/public"
+            }
+        ]
+    }
+}

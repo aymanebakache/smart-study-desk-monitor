@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Firebase - Smart Study Desk Monitor</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #4ec9b0;
+            border-bottom: 2px solid #4ec9b0;
+            padding-bottom: 10px;
+        }
+        
+        .test-section {
+            background: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .test-title {
+            color: #569cd6;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: #0e639c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #1177bb;
+        }
+        
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        
+        .log {
+            background: #1e1e1e;
+            border: 1px solid #3e3e42;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.9em;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid transparent;
+        }
+        
+        .log-success {
+            color: #4ec9b0;
+            border-left-color: #4ec9b0;
+        }
+        
+        .log-error {
+            color: #f48771;
+            border-left-color: #f48771;
+        }
+        
+        .log-info {
+            color: #569cd6;
+            border-left-color: #569cd6;
+        }
+        
+        .log-warning {
+            color: #dcdcaa;
+            border-left-color: #dcdcaa;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status-connected {
+            background: #4ec9b0;
+            color: #1e1e1e;
+        }
+        
+        .status-disconnected {
+            background: #f48771;
+            color: #1e1e1e;
+        }
+        
+        .config-box {
+            background: #2d2d30;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            background: #2d2d30;
+            border: 1px solid #3e3e42;
+            color: #d4d4d4;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #dcdcaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Test Firebase - Smart Study Desk Monitor</h1>
+    
+    <!-- Section 1: Configuration -->
+    <div class="test-section">
+        <div class="test-title">1️⃣ Configuration Firebase</div>
+        <p>État de connexion: <span id="connectionStatus" class="status status-disconnected">Non connecté</span></p>
+        
+        <div class="config-box">
+            <strong>URL Firebase Database:</strong><br>
+            <span id="firebaseUrl">Chargement...</span>
+        </div>
+        
+        <button onclick="testConnection()">🔌 Tester la connexion</button>
+        <button onclick="clearLog()">🗑️ Effacer les logs</button>
+        
+        <div class="log" id="connectionLog"></div>
+    </div>
+    
+    <!-- Section 2: Test d'écriture -->
+    <div class="test-section">
+        <div class="test-title">2️⃣ Test d'écriture de données</div>
+        
+        <label>Luminosité (Lux):</label>
+        <input type="number" id="testLight" value="450" min="0" max="100000">
+        
+        <label>Bruit (dB):</label>
+        <input type="number" id="testNoise" value="45" min="0" max="150">
+        
+        <label>Température (°C):</label>
+        <input type="number" id="testTemp" value="22.5" min="-50" max="100" step="0.1">
+        
+        <label>Humidité (%):</label>
+        <input type="number" id="testHumidity" value="55" min="0" max="100">
+        
+        <br><br>
+        <button onclick="sendTestData()">📤 Envoyer des données de test</button>
+        <button onclick="sendRandomData()">🎲 Envoyer des données aléatoires</button>
+        
+        <div class="log" id="writeLog"></div>
+    </div>
+    
+    <!-- Section 3: Test de lecture -->
+    <div class="test-section">
+        <div class="test-title">3️⃣ Test de lecture de données</div>
+        
+        <button onclick="readLastData()">📥 Lire la dernière donnée</button>
+        <button onclick="readAllData()">📚 Lire toutes les données</button>
+        <button onclick="listenRealtime()">👂 Écouter en temps réel</button>
+        <button onclick="stopListening()">⏹️ Arrêter l'écoute</button>
+        
+        <div class="log" id="readLog"></div>
+    </div>
+    
+    <!-- Section 4: Statistiques -->
+    <div class="test-section">
+        <div class="test-title">4️⃣ Statistiques de la base</div>
+        
+        <button onclick="getStatistics()">📊 Obtenir les statistiques</button>
+        <button onclick="deleteOldData()">🗑️ Supprimer les anciennes données (>100)</button>
+        
+        <div class="log" id="statsLog"></div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <script>
+        // ========================================
+        // CONFIGURATION FIREBASE
+        // ========================================
+        // ⚠️ REMPLACEZ PAR VOTRE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "VOTRE_API_KEY",
+            authDomain: "smart-study-desk-monitor.firebaseapp.com",
+            databaseURL: "https://smart-study-desk-monitor-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "smart-study-desk-monitor",
+            storageBucket: "smart-study-desk-monitor.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+        
+        // Initialiser Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const readingsRef = database.ref('study_desk_monitor/readings');
+        
+        let realtimeListener = null;
+        
+        // ========================================
+        // FONCTIONS DE LOGGING
+        // ========================================
+        
+        function log(logId, message, type = 'info') {
+            const logElement = document.getElementById(logId);
+            const timestamp = new Date().toLocaleTimeString('fr-FR');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${timestamp}] ${message}`;
+            logElement.insertBefore(entry, logElement.firstChild);
+        }
+        
+        function clearLog() {
+            document.querySelectorAll('.log').forEach(log => log.innerHTML = '');
+        }
+        
+        // ========================================
+        // TEST 1: CONNEXION
+        // ========================================
+        
+        function testConnection() {
+            log('connectionLog', 'Test de connexion à Firebase...', 'info');
+            
+            database.ref('.info/connected').once('value', (snapshot) => {
+                if (snapshot.val() === true) {
+                    log('connectionLog', '✓ Connexion réussie à Firebase!', 'success');
+                    document.getElementById('connectionStatus').className = 'status status-connected';
+                    document.getElementById('connectionStatus').textContent = 'Connecté';
+                } else {
+                    log('connectionLog', '✗ Impossible de se connecter à Firebase', 'error');
+                }
+            }).catch((error) => {
+                log('connectionLog', `✗ Erreur: ${error.message}`, 'error');
+            });
+        }
+        
+        // ========================================
+        // TEST 2: ÉCRITURE
+        // ========================================
+        
+        function calculateComfortScore(light, noise, temp) {
+            let lightScore = 0, noiseScore = 0, tempScore = 0;
+            
+            if (light < 200) lightScore = 25;
+            else if (light >= 200 && light < 300) lightScore = 60;
+            else if (light >= 300 && light <= 500) lightScore = 95;
+            else lightScore = 80;
+            
+            if (noise < 30) noiseScore = 100;
+            else if (noise <= 50) noiseScore = 95;
+            else if (noise <= 70) noiseScore = 60;
+            else noiseScore = 30;
+            
+            if (temp < 18) tempScore = 50;
+            else if (temp >= 20 && temp <= 24) tempScore = 95;
+            else if (temp > 24 && temp <= 26) tempScore = 75;
+            else tempScore = 60;
+            
+            return Math.round((lightScore * 0.4) + (noiseScore * 0.3) + (tempScore * 0.3));
+        }
+        
+        function sendTestData() {
+            const light = parseFloat(document.getElementById('testLight').value);
+            const noise = parseFloat(document.getElementById('testNoise').value);
+            const temp = parseFloat(document.getElementById('testTemp').value);
+            const humidity = parseFloat(document.getElementById('testHumidity').value);
+            const comfortScore = calculateComfortScore(light, noise, temp);
+            
+            const data = {
+                timestamp: new Date().toISOString(),
+                light: light,
+                noise: noise,
+                temperature: temp,
+                humidity: humidity,
+                comfort_score: comfortScore
+            };
+            
+            log('writeLog', `Envoi de données: ${JSON.stringify(data)}`, 'info');
+            
+            readingsRef.push(data)
+                .then(() => {
+                    log('writeLog', '✓ Données envoyées avec succès!', 'success');
+                })
+                .catch((error) => {
+                    log('writeLog', `✗ Erreur: ${error.message}`, 'error');
+                });
+        }
+        
+        function sendRandomData() {
+            const light = Math.floor(Math.random() * 600) + 200;
+            const noise = Math.floor(Math.random() * 60) + 30;
+            const temp = (Math.random() * 10) + 18;
+            const humidity = Math.floor(Math.random() * 40) + 40;
+            const comfortScore = calculateComfortScore(light, noise, temp);
+            
+            const data = {
+                timestamp: new Date().toISOString(),
+                light: light,
+                noise: noise,
+                temperature: parseFloat(temp.toFixed(1)),
+                humidity: humidity,
+                comfort_score: comfortScore
+            };
+            
+            log('writeLog', `Envoi de données aléatoires...`, 'info');
+            
+            readingsRef.push(data)
+                .then(() => {
+                    log('writeLog', `✓ Données aléatoires envoyées! Score: ${comfortScore}/100`, 'success');
+                })
+                .catch((error) => {
+                    log('writeLog', `✗ Erreur: ${error.message}`, 'error');
+                });
+        }
+        
+        // ========================================
+        // TEST 3: LECTURE
+        // ========================================
+        
+        function readLastData() {
+            log('readLog', 'Lecture de la dernière donnée...', 'info');
+            
+            readingsRef.limitToLast(1).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    log('readLog', `✓ Données récupérées: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    log('readLog', '⚠ Aucune donnée trouvée', 'warning');
+                }
+            }).catch((error) => {
+                log('readLog', `✗ Erreur: ${error.message}`, 'error');
+            });
+        }
+        
+        function readAllData() {
+            log('readLog', 'Lecture de toutes les données...', 'info');
+            
+            readingsRef.once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const count = snapshot.numChildren();
+                    log('readLog', `✓ ${count} enregistrement(s) trouvé(s)`, 'success');
+                    
+                    snapshot.forEach((child) => {
+                        const data = child.val();
+                        log('readLog', `📄 ${child.key}: Temp=${data.temperature}°C, Light=${data.light}Lux, Score=${data.comfort_score}`, 'info');
+                    });
+                } else {
+                    log('readLog', '⚠ Aucune donnée trouvée', 'warning');
+                }
+            }).catch((error) => {
+                log('readLog', `✗ Erreur: ${error.message}`, 'error');
+            });
+        }
+        
+        function listenRealtime() {
+            if (realtimeListener) {
+                log('readLog', '⚠ L\'écoute en temps réel est déjà active', 'warning');
+                return;
+            }
+            
+            log('readLog', '👂 Démarrage de l\'écoute en temps réel...', 'info');
+            
+            realtimeListener = readingsRef.limitToLast(1).on('child_added', (snapshot) => {
+                const data = snapshot.val();
+                log('readLog', `🔔 Nouvelle donnée: Temp=${data.temperature}°C, Score=${data.comfort_score}/100`, 'success');
+            });
+        }
+        
+        function stopListening() {
+            if (!realtimeListener) {
+                log('readLog', '⚠ Aucune écoute active', 'warning');
+                return;
+            }
+            
+            readingsRef.off('child_added', realtimeListener);
+            realtimeListener = null;
+            log('readLog', '⏹️ Écoute en temps réel arrêtée', 'info');
+        }
+        
+        // ========================================
+        // TEST 4: STATISTIQUES
+        // ========================================
+        
+        function getStatistics() {
+            log('statsLog', 'Calcul des statistiques...', 'info');
+            
+            readingsRef.once('value', (snapshot) => {
+                if (!snapshot.exists()) {
+                    log('statsLog', '⚠ Aucune donnée pour calculer les statistiques', 'warning');
+                    return;
+                }
+                
+                let count = 0;
+                let sumLight = 0, sumNoise = 0, sumTemp = 0, sumScore = 0;
+                
+                snapshot.forEach((child) => {
+                    const data = child.val();
+                    sumLight += data.light;
+                    sumNoise += data.noise;
+                    sumTemp += data.temperature;
+                    sumScore += data.comfort_score;
+                    count++;
+                });
+                
+                const avgLight = (sumLight / count).toFixed(1);
+                const avgNoise = (sumNoise / count).toFixed(1);
+                const avgTemp = (sumTemp / count).toFixed(1);
+                const avgScore = (sumScore / count).toFixed(0);
+                
+                log('statsLog', `📊 Nombre d'enregistrements: ${count}`, 'success');
+                log('statsLog', `💡 Luminosité moyenne: ${avgLight} Lux`, 'info');
+                log('statsLog', `🔊 Bruit moyen: ${avgNoise} dB`, 'info');
+                log('statsLog', `🌡️ Température moyenne: ${avgTemp}°C`, 'info');
+                log('statsLog', `🎯 Score moyen: ${avgScore}/100`, 'success');
+            });
+        }
+        
+        function deleteOldData() {
+            log('statsLog', 'Suppression des anciennes données...', 'warning');
+            
+            readingsRef.once('value', (snapshot) => {
+                const count = snapshot.numChildren();
+                
+                if (count <= 100) {
+                    log('statsLog', `⚠ Seulement ${count} enregistrements, pas de suppression nécessaire`, 'warning');
+                    return;
+                }
+                
+                const toDelete = count - 100;
+                let deleted = 0;
+                
+                snapshot.forEach((child) => {
+                    if (deleted < toDelete) {
+                        child.ref.remove();
+                        deleted++;
+                    }
+                });
+                
+                log('statsLog', `✓ ${deleted} ancien(s) enregistrement(s) supprimé(s)`, 'success');
+            });
+        }
+        
+        // ========================================
+        // INITIALISATION
+        // ========================================
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('firebaseUrl').textContent = firebaseConfig.databaseURL;
+            testConnection();
+        });
+    </script>
+</body>
+</html>
