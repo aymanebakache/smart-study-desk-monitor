@@ -281,5 +281,6 @@ deprecated/
 !.vscode/extensions.json
 
 # ========================================
-# End of .gitignore
+# Powershell script
 # ========================================
+*.ps1
